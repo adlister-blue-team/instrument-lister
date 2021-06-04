@@ -2,7 +2,7 @@
 *.iml
 target/
 .idea/
-Config.java
+src/main/java/dao/Config.java
 
 
 /shelf/
