@@ -10,8 +10,12 @@ import java.util.List;
 public class MySQLUsersDao implements Users{
     private Connection connection;
 
+    public MySQLUsersDao(Config config){
+        this.connection = getConnection(config);
+    }
+
     public List<User> getAllUsers() {
-        List<User> users = new ArrayList<User>();
+        List<User> users = new ArrayList<>();
         String query = "SELECT * FROM users";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
@@ -42,7 +46,7 @@ public class MySQLUsersDao implements Users{
                     rs.getString("username"),
                     rs.getString("email"),
                     rs.getString("password")
-            ));
+            );
 
         } catch (SQLException e) {
             throw new RuntimeException("Error getting user by id.", e);
@@ -60,7 +64,7 @@ public class MySQLUsersDao implements Users{
                     rs.getString("username"),
                     rs.getString("email"),
                     rs.getString("password")
-            ));
+            );
 
         } catch (SQLException e) {
             throw new RuntimeException("Error getting user by username.", e);
@@ -113,14 +117,15 @@ public class MySQLUsersDao implements Users{
         }
     }
 
-    public Connection getConnection(){
+    public Connection getConnection(Config config){
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
-                    Config.getUrl(),
-                    Config.getUsername(),
-                    Config.getPassword()
+                    config.getUrl(),
+                    config.getUsername(),
+                    config.getPassword()
             );
+            return connection;
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
         }
