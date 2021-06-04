@@ -7,14 +7,14 @@ public class DaoFactory {
 
     public static Users getUsersDao() {
         if(usersDao == null){
-            usersDao =  ``new MySQLUsersDao(config);
+            usersDao = new MySQLUsersDao(config);
         }
         return usersDao;
     }
 
     public static Instruments getInstrumentsDao() {
         if(instrumentsDao == null){
-            instrumentsDao = new MySQLInstrumentsDao(config);
+           instrumentsDao =  new MySQLInstrumentsDao(config);
         }
         return instrumentsDao;
     }

@@ -9,4 +9,6 @@ public interface Instruments {
     List<Instrument> all();
     //insert a new ad and return the new instrument's id
     Long insert(Instrument instrument);
+
+
 }

@@ -1,33 +1,30 @@
 package dao;
 
 import com.mysql.cj.jdbc.Driver;
+import models.Instrument;
 
 import javax.security.auth.login.Configuration;
-import javax.sound.midi.Instrument;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLInstrumentsDao {
+public class MySQLInstrumentsDao implements Instruments {
     private Connection connection = null;
 
     public MySQLInstrumentsDao(Config config){
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
-                    config.getName(),
-                    config.getDescription(),
-                    config.getOwner_id(),
-                    config.getPayment_type(),
-                    config.getPrice(),
-                    config.getShipping_method()
+                 config.getUrl(),
+                 config.getUsername(),
+                    config.getPassword()
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
         }
     }
 
-    @Override
+
     public List<Instrument> all() {
         PreparedStatement statement = null;
         try {
@@ -39,17 +36,17 @@ public class MySQLInstrumentsDao {
         }
     }
 
-    @Override
-    public Long insert(Instruments instruments) {
+
+    public Long insert(Instrument instrument) {
         try {
             String insertQuery = "INSERT INTO Instruments(name, description, owner_id, payment_type, price, shipping_method) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, instruments.getName());
-            statement.setString(2, instruments.getDescription());
-            statement.setLong(3, instruments.getOwner_id());
-            statement.setString(4, instruments.getPayment_type());
-            statement.setFloat(5, instruments.getPrice());
-            statement.setString(6, statement.getShipping_method());
+            statement.setString(1, instrument.getName());
+            statement.setString(2, instrument.getDescription());
+            statement.setLong(3, instrument.getOwnerId());
+            statement.setString(4, instrument.getPaymentType());
+            statement.setFloat(5, instrument.getPrice());
+            statement.setString(6, instrument.getShippingMethod());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -61,12 +58,13 @@ public class MySQLInstrumentsDao {
 
     private Instrument extractInstrument(ResultSet resultSet) throws SQLException {
         return new Instrument(
+                resultSet.getLong("id") ,
                 resultSet.getString("name"),
                 resultSet.getString("description"),
                 resultSet.getLong("owner_id"),
-                resultSet.getString("payment_type"),
                 resultSet.getFloat("price"),
-                resultSet.getString("shipping_method")
+                resultSet.getString("shipping_method"),
+                resultSet.getString("paymentType")
         );
     }
 

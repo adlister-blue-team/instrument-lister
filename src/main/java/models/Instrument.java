@@ -4,25 +4,30 @@ public class Instrument {
     private long id;
     private String name;
     private String description;
-    private String owner;
-    private Float price;
+    private long owner_id;
+    private float price;
+    private String shippingMethod;
+    private String paymentType;
 
-    public Instrument() {}
-
-    public Instrument(String name, String description, String owner, Float price) {
-        this.name= name;
-        this.description= description;
-        this.owner= owner;
-        this.price = price;
+    public Instrument(long id, String name, String description, long owner_id, float price, String shipping_method, String paymentType) {
+        this.id=id;
+        this.name=name;
+        this.description=description;
+        this.owner_id=owner_id;
+        this.price=price;
+        this.shippingMethod= shipping_method;
+        this.paymentType=paymentType;
     }
 
-    public Instrument(long id, String name, String description, String owner, Float price) {
+    public Instrument(long id, String name, String description, Long owner_id, Float price) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.owner = owner;
+        this.owner_id = owner_id;
         this.price= price;
     }
+
+
 
     public long getId() {
         return id;
@@ -56,12 +61,28 @@ public class Instrument {
         this.price = price;
     }
 
-    public String getOwner() {
-        return owner;
+    public Long getOwnerId() {
+        return owner_id;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwnerId(Long owner) {
+        this.owner_id = owner;
+    }
+
+    public String getShippingMethod() {
+        return shippingMethod;
+    }
+
+    public void setShippingMethod(String shippingMethod) {
+        this.shippingMethod = shippingMethod;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 }
 
