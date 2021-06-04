@@ -33,3 +33,4 @@ CREATE TABLE IF NOT EXISTS instruments_types (
     FOREIGN KEY (instrument_id) REFERENCES instruments(id),
     FOREIGN KEY (type_id) REFERENCES types (id)
     );
+
