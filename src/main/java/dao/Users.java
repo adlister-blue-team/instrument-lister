@@ -1,18 +1,22 @@
 package dao;
 
+import models.User;
+
+import java.util.List;
+
 public interface Users {
     List<User> getAllUsers();
 
-    User getUserById();
+    User getUserById(long id);
 
-    User getUserByUsername();
+    User getUserByUsername(String username);
 
     //returns id of inserted user
-    long insertUser();
+    long insertUser(User user);
 
-    //returns true if updated, false if failed to update
-    boolean updateUser(long id, User user);
+    //returns id of deleted user
+    long updateUser(long id, User user);
 
-    //returns true if deleted, false if failed to delete
-    boolean deleteUser(long id);
+    //returns if of deleted user
+    long deleteUser(long id);
 }

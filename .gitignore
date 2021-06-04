@@ -12,3 +12,5 @@ src/main/java/dao/Config.java
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+# Database config
+Config.java
