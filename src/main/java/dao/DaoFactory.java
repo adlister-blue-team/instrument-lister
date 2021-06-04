@@ -14,7 +14,7 @@ public class DaoFactory {
 
     public static Instruments getInstrumentsDao() {
         if(instrumentsDao == null){
-            instrumentsDao = new MySQLInstrumentsDao(config);
+           instrumentsDao =  new MySQLInstrumentsDao(config);
         }
         return instrumentsDao;
     }

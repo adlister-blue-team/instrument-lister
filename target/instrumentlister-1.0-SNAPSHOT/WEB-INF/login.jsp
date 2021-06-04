@@ -8,22 +8,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Login Page</title>
+    <jsp:include page="partials/head.jsp">
+        <jsp:param name="title" value="Login" />
+    </jsp:include>
 </head>
 <body>
-
+<jsp:include page="partials/navbar.jsp" />
 <div class="container">
     <h1>Welcome Fellow Musician</h1>
     <form action="/login" method="POST">
-        <p>Please Login:</p>
+        <h3>Please Login:</h3>
         <div class="form-group">
             <label for="username">Username:</label>
             <input id="username" name="username" class="form-control" type="text">
-
+            <br>
+            <br>
             <label for="password">Password:</label>
             <input id="password" name="password" class="form-control" type="password">
-
-        <input type="submit" value="Log In">
+            <br>
+            <br>
+            <input type="submit" value="Log In">
         </div>
     </form>
 </div>
