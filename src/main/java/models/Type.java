@@ -3,6 +3,7 @@ package models;
 public class Type {
     private String name;
 
+    public Type(){}
     public Type(String name){
         this.name = name;
     }
