@@ -1,4 +1,10 @@
 # Default ignored files
+*.iml
+target/
+.idea/
+Config.java
+
+
 /shelf/
 /.idea/workspace.xml
 # Datasource local storage ignored files
@@ -6,4 +12,3 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-Config.java
