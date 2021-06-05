@@ -17,6 +17,6 @@ public interface Users {
     //returns id of deleted user
     long updateUser(long id, User user);
 
-    //returns if of deleted user
-    long deleteUser(long id);
+    //return true if deleted user
+    boolean deleteUser(long id);
 }

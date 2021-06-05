@@ -4,26 +4,35 @@ public class Instrument {
     private long id;
     private String name;
     private String description;
-    private long owner_id;
+    private long ownerId;
     private float price;
     private String shippingMethod;
     private String paymentType;
 
-    public Instrument(long id, String name, String description, long owner_id, float price, String shipping_method, String paymentType) {
+    public Instrument(long id, String name, String description, long ownerId, float price, String shippingMethod, String paymentType) {
         this.id=id;
         this.name=name;
         this.description=description;
-        this.owner_id=owner_id;
+        this.ownerId=ownerId;
         this.price=price;
-        this.shippingMethod= shipping_method;
+        this.shippingMethod= shippingMethod;
         this.paymentType=paymentType;
     }
 
-    public Instrument(long id, String name, String description, Long owner_id, Float price) {
+    public Instrument(String name, String description, long ownerId, float price, String shippingMethod, String paymentType) {
+        this.name=name;
+        this.description=description;
+        this.ownerId=ownerId;
+        this.price=price;
+        this.shippingMethod= shippingMethod;
+        this.paymentType=paymentType;
+    }
+
+    public Instrument(long id, String name, String description, Long ownerId, Float price) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.owner_id = owner_id;
+        this.ownerId = ownerId;
         this.price= price;
     }
 
@@ -62,11 +71,11 @@ public class Instrument {
     }
 
     public Long getOwnerId() {
-        return owner_id;
+        return ownerId;
     }
 
     public void setOwnerId(Long owner) {
-        this.owner_id = owner;
+        this.ownerId = owner;
     }
 
     public String getShippingMethod() {

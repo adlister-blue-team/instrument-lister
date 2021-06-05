@@ -11,12 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/instruments/create")
-public class CreateAdServlet extends HttpServlet {
+@WebServlet(name = "controllers.CreateInstrumentServlet", urlPatterns = "/instruments/create")
+public class CreateInstrumentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
-            return;
         }
         request.getRequestDispatcher("/WEB-INF/ads/create.jsp")
                 .forward(request, response);
@@ -28,10 +27,12 @@ public class CreateAdServlet extends HttpServlet {
                 user.getId(),
                 request.getParameter("name"),
                 request.getParameter("description"),
-                request.getParameter("price"),
-                request.getParameter("")
+                Long.parseLong(request.getParameter("ownedId")),
+                Float.parseFloat(request.getParameter("price")),
+                request.getParameter("shippingMethod"),
+                request.getParameter("paymentType")
         );
-        DaoFactory.getInstrumentsDao().insert(instrument);
+        DaoFactory.getInstrumentsDao().insertInstrument(instrument);
         response.sendRedirect("/ads");
 
     }

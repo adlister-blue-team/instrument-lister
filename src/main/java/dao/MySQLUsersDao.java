@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySQLUsersDao implements Users{
-    private Connection connection;
+    private Connection connection = null;
 
     public MySQLUsersDao(Config config){
         this.connection = getConnection(config);
     }
 
+    @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         String query = "SELECT * FROM users";
@@ -35,6 +36,7 @@ public class MySQLUsersDao implements Users{
         }
     }
 
+    @Override
     public User getUserById(long id) {
         String query = "SELECT * FROM users WHERE id = ?";
         try {
@@ -53,6 +55,7 @@ public class MySQLUsersDao implements Users{
         }
     }
 
+    @Override
     public User getUserByUsername(String username) {
         String query = "SELECT * FROM users WHERE username = ?";
         try {
@@ -71,6 +74,7 @@ public class MySQLUsersDao implements Users{
         }
     }
 
+    @Override
     public long insertUser(User user) {
         try {
             String insertQuery = "INSERT INTO users(email, username, password) VALUES (?, ?, ?)";
@@ -87,13 +91,15 @@ public class MySQLUsersDao implements Users{
         }
     }
 
+    @Override
     public long updateUser(long id, User user) {
         try {
-            String insertQuery = "UPDATE users SET email = ?, username = ?, password = ?";
+            String insertQuery = "UPDATE users SET email = ?, username = ?, password = ? WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getUsername());
             stmt.setString(3, user.getPassword());
+            stmt.setLong(4, id);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -103,7 +109,8 @@ public class MySQLUsersDao implements Users{
         }
     }
 
-    public long deleteUser(long id) {
+    @Override
+    public boolean deleteUser(long id) {
         try {
             String insertQuery = "DELETE from users WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
@@ -111,7 +118,7 @@ public class MySQLUsersDao implements Users{
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            return rs.getLong(1);
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting a user.", e);
         }
