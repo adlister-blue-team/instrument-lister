@@ -19,8 +19,10 @@ public class CreateInstrumentServlet extends HttpServlet {
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
         }
-        request.getRequestDispatcher("/WEB-INF/instruments/create.jsp")
-                .forward(request, response);
+        else {
+            request.getRequestDispatcher("/WEB-INF/instruments/create.jsp")
+                    .forward(request, response);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
