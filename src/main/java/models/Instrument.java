@@ -1,39 +1,45 @@
 package models;
 
+import java.util.List;
+
 public class Instrument {
     private long id;
     private String name;
     private String description;
-    private long ownerId;
+    private String ownerUsername;
     private float price;
     private String shippingMethod;
     private String paymentType;
+    private List<String> types;
 
-    public Instrument(long id, String name, String description, long ownerId, float price, String shippingMethod, String paymentType) {
+    public Instrument(long id, String name, String description, String ownerUsername, float price, String shippingMethod, String paymentType, List<String> types) {
         this.id=id;
         this.name=name;
         this.description=description;
-        this.ownerId=ownerId;
+        this.ownerUsername = ownerUsername;
         this.price=price;
         this.shippingMethod= shippingMethod;
         this.paymentType=paymentType;
+        this.types = types;
     }
 
-    public Instrument(String name, String description, long ownerId, float price, String shippingMethod, String paymentType) {
+    public Instrument(String name, String description, String ownerUsername, float price, String shippingMethod, String paymentType, List<String> types) {
         this.name=name;
         this.description=description;
-        this.ownerId=ownerId;
+        this.ownerUsername = ownerUsername;
         this.price=price;
         this.shippingMethod= shippingMethod;
         this.paymentType=paymentType;
+        this.types = types;
     }
 
-    public Instrument(long id, String name, String description, Long ownerId, Float price) {
+    public Instrument(long id, String name, String description, String ownerUsername, Float price, List<String> types) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.ownerId = ownerId;
+        this.ownerUsername = ownerUsername;
         this.price= price;
+        this.types = types;
     }
 
 
@@ -70,12 +76,12 @@ public class Instrument {
         this.price = price;
     }
 
-    public Long getOwnerId() {
-        return ownerId;
+    public String getOwnerUsername() {
+        return ownerUsername;
     }
 
-    public void setOwnerId(Long owner) {
-        this.ownerId = owner;
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 
     public String getShippingMethod() {
@@ -93,5 +99,6 @@ public class Instrument {
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
     }
+
 }
 

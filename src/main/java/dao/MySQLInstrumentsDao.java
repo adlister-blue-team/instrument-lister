@@ -28,10 +28,11 @@ public class MySQLInstrumentsDao implements Instruments {
                         rs.getLong("id"),
                         rs.getString("name"),
                         rs.getString("description"),
-                        rs.getLong("owner_id"),
+                        rs.getString("owner_name"),
                         rs.getFloat("price"),
                         rs.getString("shipping_method"),
-                        rs.getString("payment_type")
+                        rs.getString("payment_type"),
+
                 ));
             }
             return instruments;
@@ -52,7 +53,7 @@ public class MySQLInstrumentsDao implements Instruments {
                     rs.getLong("id"),
                     rs.getString("name"),
                     rs.getString("description"),
-                    rs.getLong("owner_id"),
+                    rs.getString("owner_name"),
                     rs.getFloat("price"),
                     rs.getString("shipping_method"),
                     rs.getString("payment_type")
@@ -66,12 +67,12 @@ public class MySQLInstrumentsDao implements Instruments {
     @Override
     public Long insertInstrument(Instrument instrument) {
         try {
-            String insertQuery = "INSERT INTO instruments(name, description, owner_id, payment_type, price, shipping_method) " +
+            String insertQuery = "INSERT INTO instruments(name, description, owner_name, payment_type, price, shipping_method) " +
                                     "VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, instrument.getName());
             stmt.setString(2, instrument.getDescription());
-            stmt.setLong(3, instrument.getOwnerId());
+            stmt.setString(3, instrument.getOwnerUsername());
             stmt.setString(4, instrument.getPaymentType());
             stmt.setFloat(5, instrument.getPrice());
             stmt.setString(6, instrument.getShippingMethod());
@@ -87,12 +88,12 @@ public class MySQLInstrumentsDao implements Instruments {
     @Override
     public long updateInstrument(long id, Instrument instrument) {
         try {
-            String insertQuery = "UPDATE instruments SET name = ?, description = ?, owner_id = ?, price = ?," +
+            String insertQuery = "UPDATE instruments SET name = ?, description = ?, owner_name = ?, price = ?," +
                                     "shipping_method = ?, payment_type = ? WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, instrument.getName());
             stmt.setString(2, instrument.getDescription());
-            stmt.setLong(3, instrument.getOwnerId());
+            stmt.setString(3, instrument.getOwnerUsername());
             stmt.setString(4, instrument.getPaymentType());
             stmt.setFloat(5, instrument.getPrice());
             stmt.setString(6, instrument.getShippingMethod());
@@ -121,10 +122,26 @@ public class MySQLInstrumentsDao implements Instruments {
         }
     }
 
+    @Override
+    public List<String> getInstrumentTypes(Long id){
+        List<String> types = new ArrayList<>();
+        try {
+            String insertQuery = "SELECT name FROM instruments_types ";
+            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting an instrument.", e);
+        }
+    }
+
     public Connection getConnection(Config config){
         try {
             DriverManager.registerDriver(new Driver());
-            connection = DriverManager.getConnection(
+            Connection connection = DriverManager.getConnection(
                     config.getUrl(),
                     config.getUsername(),
                     config.getPassword()
