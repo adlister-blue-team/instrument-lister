@@ -23,7 +23,6 @@ public class MySQLUsersDao implements Users{
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 users.add(new User(
-                        rs.getLong("id"),
                         rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("password")
@@ -37,25 +36,6 @@ public class MySQLUsersDao implements Users{
     }
 
     @Override
-    public User getUserById(long id) {
-        String query = "SELECT * FROM users WHERE id = ?";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setLong(1, id);
-            ResultSet rs = stmt.executeQuery();
-            return new User(
-                    rs.getLong("id"),
-                    rs.getString("username"),
-                    rs.getString("email"),
-                    rs.getString("password")
-            );
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error getting user by id.", e);
-        }
-    }
-
-    @Override
     public User getUserByUsername(String username) {
         String query = "SELECT * FROM users WHERE username = ?";
         try {
@@ -63,7 +43,6 @@ public class MySQLUsersDao implements Users{
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             return new User(
-                    rs.getLong("id"),
                     rs.getString("username"),
                     rs.getString("email"),
                     rs.getString("password")
@@ -75,7 +54,7 @@ public class MySQLUsersDao implements Users{
     }
 
     @Override
-    public long insertUser(User user) {
+    public String insertUser(User user) {
         try {
             String insertQuery = "INSERT INTO users(email, username, password) VALUES (?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
@@ -85,36 +64,36 @@ public class MySQLUsersDao implements Users{
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            return rs.getLong(1);
+            return user.getUsername();
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new user.", e);
         }
     }
 
     @Override
-    public long updateUser(long id, User user) {
+    public String updateUser(String username, User user) {
         try {
-            String insertQuery = "UPDATE users SET email = ?, username = ?, password = ? WHERE id = ?";
+            String insertQuery = "UPDATE users SET email = ?, username = ?, password = ? WHERE username = ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getUsername());
             stmt.setString(3, user.getPassword());
-            stmt.setLong(4, id);
+            stmt.setString(4, username);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            return rs.getLong(1);
+            return user.getUsername();
         } catch (SQLException e) {
             throw new RuntimeException("Error updating a user.", e);
         }
     }
 
     @Override
-    public boolean deleteUser(long id) {
+    public boolean deleteUser(String username) {
         try {
-            String insertQuery = "DELETE from users WHERE id = ?";
+            String insertQuery = "DELETE from users WHERE username = ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-            stmt.setLong(1, id);
+            stmt.setString(1, username);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
