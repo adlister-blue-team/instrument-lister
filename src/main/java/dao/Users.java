@@ -7,16 +7,14 @@ import java.util.List;
 public interface Users {
     List<User> getAllUsers();
 
-    User getUserById(long id);
-
     User getUserByUsername(String username);
 
-    //returns id of inserted user
-    long insertUser(User user);
+    //returns username of inserted user
+    String insertUser(User user);
 
-    //returns id of deleted user
-    long updateUser(long id, User user);
+    //returns username of updated user
+    String updateUser(String username, User user);
 
     //return true if deleted user
-    boolean deleteUser(long id);
+    boolean deleteUser(String userrname);
 }

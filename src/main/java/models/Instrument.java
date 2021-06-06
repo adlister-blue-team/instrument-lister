@@ -12,6 +12,7 @@ public class Instrument {
     private String paymentType;
     private List<String> types;
 
+    public Instrument() {}
     public Instrument(long id, String name, String description, String ownerUsername, float price, String shippingMethod, String paymentType, List<String> types) {
         this.id=id;
         this.name=name;
@@ -32,17 +33,6 @@ public class Instrument {
         this.paymentType=paymentType;
         this.types = types;
     }
-
-    public Instrument(long id, String name, String description, String ownerUsername, Float price, List<String> types) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.ownerUsername = ownerUsername;
-        this.price= price;
-        this.types = types;
-    }
-
-
 
     public long getId() {
         return id;
@@ -100,5 +90,12 @@ public class Instrument {
         this.paymentType = paymentType;
     }
 
+    public List<String> getTypes(){
+        return this.types;
+    }
+
+    public void setTypes(List<String> types){
+        this.types = types;
+    }
 }
 

@@ -21,4 +21,6 @@ public interface Instruments {
     //return true if deleted instrument
     boolean deleteInstrument(long id);
 
+    List<String> getInstrumentTypes(long id);
+
 }

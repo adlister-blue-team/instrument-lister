@@ -32,7 +32,7 @@ public class MySQLInstrumentsDao implements Instruments {
                         rs.getFloat("price"),
                         rs.getString("shipping_method"),
                         rs.getString("payment_type"),
-
+                        getInstrumentTypes(rs.getLong("id"))
                 ));
             }
             return instruments;
@@ -56,7 +56,8 @@ public class MySQLInstrumentsDao implements Instruments {
                     rs.getString("owner_name"),
                     rs.getFloat("price"),
                     rs.getString("shipping_method"),
-                    rs.getString("payment_type")
+                    rs.getString("payment_type"),
+                    getInstrumentTypes(rs.getLong("id"))
             );
 
         } catch (SQLException e) {
@@ -67,9 +68,9 @@ public class MySQLInstrumentsDao implements Instruments {
     @Override
     public Long insertInstrument(Instrument instrument) {
         try {
-            String insertQuery = "INSERT INTO instruments(name, description, owner_name, payment_type, price, shipping_method) " +
+            String query = "INSERT INTO instruments(name, description, owner_name, payment_type, price, shipping_method) " +
                                     "VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, instrument.getName());
             stmt.setString(2, instrument.getDescription());
             stmt.setString(3, instrument.getOwnerUsername());
@@ -79,7 +80,17 @@ public class MySQLInstrumentsDao implements Instruments {
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            return rs.getLong(1);
+            long id = rs.getLong(1);
+
+            //adds the instrument to types relations to the instruments_types table
+            query = "INSERT INTO instruments_types (instrument_id, type_name) VALUES (?, ?)";
+            stmt = connection.prepareStatement(query);
+            stmt.setLong(1, id);
+            for (String type : instrument.getTypes()){
+                stmt.setString(2, type);
+                stmt.executeUpdate();
+            }
+            return id;
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new instrument.", e);
         }
@@ -88,9 +99,9 @@ public class MySQLInstrumentsDao implements Instruments {
     @Override
     public long updateInstrument(long id, Instrument instrument) {
         try {
-            String insertQuery = "UPDATE instruments SET name = ?, description = ?, owner_name = ?, price = ?," +
+            String query = "UPDATE instruments SET name = ?, description = ?, owner_name = ?, price = ?," +
                                     "shipping_method = ?, payment_type = ? WHERE id = ?";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, instrument.getName());
             stmt.setString(2, instrument.getDescription());
             stmt.setString(3, instrument.getOwnerUsername());
@@ -101,7 +112,23 @@ public class MySQLInstrumentsDao implements Instruments {
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            return rs.getLong(1);
+
+            //wipes the previous instrument to type relations from the instruments_types table
+            query = "DELETE FROM instruments_types WHERE instrument_id = ?";
+            stmt = connection.prepareStatement(query);
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+
+            //adds the new instrument to types relations to the instruments_types table
+            query = "INSERT INTO instruments_types (instrument_id, type_name) VALUES (?, ?)";
+            stmt = connection.prepareStatement(query);
+            stmt.setLong(1, id);
+            for (String type : instrument.getTypes()){
+                stmt.setString(2, type);
+                stmt.executeUpdate();
+            }
+            return id;
+
         } catch (SQLException e) {
             throw new RuntimeException("Error updating an instrument.", e);
         }
@@ -110,10 +137,10 @@ public class MySQLInstrumentsDao implements Instruments {
     @Override
     public boolean deleteInstrument(long id) {
         try {
-            String insertQuery = "DELETE from instruments WHERE id = ?";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            String query = "DELETE from instruments WHERE id = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
-            stmt.executeUpdate();
+            stmt.executeQuery();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
             return true;
@@ -123,18 +150,20 @@ public class MySQLInstrumentsDao implements Instruments {
     }
 
     @Override
-    public List<String> getInstrumentTypes(Long id){
+    public List<String> getInstrumentTypes(long id){
         List<String> types = new ArrayList<>();
         try {
-            String insertQuery = "SELECT name FROM instruments_types ";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            String query = "SELECT type_name FROM instruments_types WHERE instrument_id = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
-            stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
-            rs.next();
-            return true;
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                types.add(rs.getString("type_name"));
+            }
+            return types;
+
         } catch (SQLException e) {
-            throw new RuntimeException("Error deleting an instrument.", e);
+            throw new RuntimeException("Error getting instrument types.", e);
         }
     }
 
