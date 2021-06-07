@@ -28,6 +28,8 @@ public class RegisterServlet extends HttpServlet {
 
         User registeredUser = new User(username, email, password);
         DaoFactory.getUsersDao().insertUser(registeredUser);
+        //verify hash passwords here and in loging jsp
+
 
 
     }
