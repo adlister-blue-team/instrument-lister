@@ -42,6 +42,7 @@ public class MySQLUsersDao implements Users{
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
+            rs.next();
             return new User(
                     rs.getString("username"),
                     rs.getString("email"),
