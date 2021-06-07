@@ -11,8 +11,10 @@ import java.io.IOException;
 @WebServlet(name = "ProfileServlet", urlPatterns = "/profile")
 public class ProfileServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/META-INF/profile.jsp");
+        User userSession = (User)request.getSession().getAttribute("user");
+
+        if ( userSession != null) {
+              request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request,response);
         }
         else { response.sendRedirect("/login"); }
     }

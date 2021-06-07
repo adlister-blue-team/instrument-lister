@@ -90,11 +90,6 @@ public class MySQLInstrumentsDao implements Instruments {
                 stmt.setString(2, type);
                 stmt.executeUpdate();
             }
-
-            //add instrument to owner's instruments
-            User user = DaoFactory.getUsersDao().getUserByUsername(instrument.getOwnerUsername());
-            user.addInstrument(instrument);
-
             return id;
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new instrument.", e);
@@ -132,11 +127,6 @@ public class MySQLInstrumentsDao implements Instruments {
                 stmt.setString(2, type);
                 stmt.executeUpdate();
             }
-
-            //update instrument in user's instruments
-            User user = DaoFactory.getUsersDao().getUserByUsername(instrument.getOwnerUsername());
-            instrument.setId(id);
-            user.updateInstrument(instrument);
             return id;
 
         } catch (SQLException e) {
@@ -147,9 +137,6 @@ public class MySQLInstrumentsDao implements Instruments {
     @Override
     public boolean deleteInstrument(long id) {
         try {
-            Instrument instrument = getInstrumentById(id);
-            User user = DaoFactory.getUsersDao().getUserByUsername(instrument.getOwnerUsername());
-            user.removeInstrument(id);
             String query = "DELETE from instruments WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
