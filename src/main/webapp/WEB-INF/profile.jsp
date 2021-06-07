@@ -44,9 +44,6 @@
         </div>
         <div class="profile-info col-md-9">
             <div class="panel">
-                <form>
-                    <textarea placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
-                </form>
                 <footer class="panel-footer">
                     <button class="btn btn-warning pull-right">Post</button>
                     <ul class="nav nav-pills">
