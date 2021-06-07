@@ -14,6 +14,6 @@ public class ProfileServlet extends HttpServlet{
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/META-INF/profile.jsp");
         }
-        else { response.sendRedirect("/login");
+        else { response.sendRedirect("/login"); }
     }
 }
