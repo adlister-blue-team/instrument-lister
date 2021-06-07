@@ -5,6 +5,8 @@ import java.util.List;
 
 public class User {
     private String username;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
     private String imageUrl;
@@ -17,12 +19,14 @@ public class User {
         this.password = password;
         this.imageUrl = imageUrl;
     }
-    public User(String username, String email, String password, List<Instrument> instruments, String imageUrl){
+    public User(String username, String email, String password, List<Instrument> instruments, String imageUrl, String firstName, String lastName){
         this.username = username;
         this.email = email;
         this.password = password;
         this.instruments = instruments;
         this.imageUrl = imageUrl;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
     public User(String username, String email, String password){
         this.username = username;
@@ -58,4 +62,20 @@ public class User {
     public void setInstruments(List<Instrument> instruments){ this.instruments = instruments; }
     public String getImageUrl(){ return this.imageUrl; }
     public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
 }
