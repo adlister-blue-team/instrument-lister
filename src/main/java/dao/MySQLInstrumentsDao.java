@@ -16,6 +16,7 @@ public class MySQLInstrumentsDao implements Instruments {
         this.connection = getConnection(config);
     }
 
+
     @Override
     public List<Instrument> getAllInstruments() {
         List<Instrument> instruments = new ArrayList<>();
