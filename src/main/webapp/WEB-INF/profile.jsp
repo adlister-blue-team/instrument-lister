@@ -13,7 +13,7 @@
             <a class="navbar-brand" href="/profile">${sessionScope.user.username}</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/index">Buy</a></li>
+            <li><a href="/instruments">Buy</a></li>
             <li><a href="/instruments/create">Sell instrument</a> </li>
         </ul>
     </div><!-- /.navbar-collapse -->
