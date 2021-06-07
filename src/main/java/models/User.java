@@ -32,6 +32,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+
     }
     public User(String username, String email, String password, List<Instrument> instruments){
         this.username = username;
@@ -39,6 +40,15 @@ public class User {
         this.password = password;
         this.instruments = instruments;
     }
+
+    public User(String username, String email, String password, String firstName, String lastName) {
+        this.username= username;
+        this.email= email;
+        this.password= password;
+        this.firstName= firstName;
+        this.lastName = lastName;
+    }
+
 
     public String getUsername(){
         return this.username;
