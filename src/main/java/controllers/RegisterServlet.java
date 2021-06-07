@@ -13,7 +13,7 @@ import models.User;
 @WebServlet(name = "controllers.RegisterServlet", urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("register.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,6 +28,8 @@ public class RegisterServlet extends HttpServlet {
 
         User registeredUser = new User(username, email, password);
         DaoFactory.getUsersDao().insertUser(registeredUser);
+        //verify hash passwords here and in loging jsp
+
 
 
     }

@@ -16,5 +16,5 @@ public interface Users {
     String updateUser(String username, User user);
 
     //return true if deleted user
-    boolean deleteUser(String userrname);
+    boolean deleteUser(String username);
 }
