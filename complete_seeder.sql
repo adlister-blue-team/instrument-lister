@@ -1,3 +1,6 @@
+DROP DATABASE instruments_db;
+CREATE DATABASE IF NOT EXISTS instruments_db;
+
 use instruments_db;
 
 CREATE TABLE IF NOT EXISTS users
@@ -22,8 +25,7 @@ CREATE TABLE IF NOT EXISTS instruments
     shipping_method VARCHAR(50)  NOT NULL,
     image_url VARCHAR(100) NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (owner_name) REFERENCES users (username)
-    ON DELETE CASCADE
+    FOREIGN KEY (owner_name) REFERENCES users (username) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS types
@@ -36,16 +38,15 @@ CREATE TABLE IF NOT EXISTS instruments_types
 (
     instrument_id INT UNSIGNED NOT NULL,
     type_name     VARCHAR(50)  NOT NULL,
-    FOREIGN KEY (instrument_id) REFERENCES instruments (id)
-    ON DELETE CASCADE,
-    FOREIGN KEY (type_name) REFERENCES types (name)
+    FOREIGN KEY (instrument_id) REFERENCES instruments (id) ON DELETE CASCADE,
+    FOREIGN KEY (type_name) REFERENCES types (name) ON DELETE CASCADE
 );
 
 insert users (first_name,last_name,email, username, password)
-values ('andrewisannoyed@gmail.com', 'andywandy123', 'iamannoyed','Andrew','Walsh'),
-       ('victorbictor34@gmail.com', 'yovicto', 'puertorico12','Victoria','Noriega'),
-       ('vanessaquesa786@yahoo.com', 'vnessisamess', 'ilovegilbert','Vicky','Da boss'),
-       ('kelvonisdamon@outlook.com', 'vapepapi', 'ivape345','Kelvon',',Patterson');
+values ('Andrew','Walsh', 'andrewisannoyed@gmail.com', 'andywandy123', 'iamannoyed'),
+       ('Victoria','Noriega', 'victorbictor34@gmail.com', 'yovicto', 'puertorico12'),
+       ('Vicky','Da boss', 'vanessaquesa786@yahoo.com', 'vnessisamess', 'ilovegilbert'),
+       ('Kelvon',',Patterson', 'kelvonisdamon@outlook.com', 'vapepapi', 'ivape345');
 
 insert into instruments (owner_name, name, description, price, payment_type, shipping_method)
 values ('andywandy123', 'Dholak', ' NEW South Asian hand-played drum', 150, 'card', 'pickup'),
@@ -79,5 +80,7 @@ values (1, 'Percussion'),
        (8, 'Brass'),
        (9, 'String'),
        (10, 'Percussion');
+
+
 
 
