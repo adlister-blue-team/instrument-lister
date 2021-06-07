@@ -1,5 +1,6 @@
 package dao;
 
+import models.Instrument;
 import models.User;
 import com.mysql.cj.jdbc.Driver;
 
@@ -21,11 +22,14 @@ public class MySQLUsersDao implements Users{
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
+            List<String> instruments = new ArrayList<>();
             while (rs.next()){
+
                 users.add(new User(
                         rs.getString("username"),
                         rs.getString("email"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        getUserInstruments(rs.getString("username"))
                 ));
             }
             return users;
@@ -46,7 +50,8 @@ public class MySQLUsersDao implements Users{
             return new User(
                     rs.getString("username"),
                     rs.getString("email"),
-                    rs.getString("password")
+                    rs.getString("password"),
+                    getUserInstruments(rs.getString("username"))
             );
 
         } catch (SQLException e) {
@@ -57,8 +62,8 @@ public class MySQLUsersDao implements Users{
     @Override
     public String insertUser(User user) {
         try {
-            String insertQuery = "INSERT INTO users(email, username, password) VALUES (?, ?, ?)";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            String query = "INSERT INTO users(email, username, password) VALUES (?, ?, ?)";
+            PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getUsername());
             stmt.setString(3, user.getPassword());
@@ -74,8 +79,8 @@ public class MySQLUsersDao implements Users{
     @Override
     public String updateUser(String username, User user) {
         try {
-            String insertQuery = "UPDATE users SET email = ?, username = ?, password = ? WHERE username = ?";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            String query = "UPDATE users SET email = ?, username = ?, password = ? WHERE username = ?";
+            PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getUsername());
             stmt.setString(3, user.getPassword());
@@ -92,8 +97,8 @@ public class MySQLUsersDao implements Users{
     @Override
     public boolean deleteUser(String username) {
         try {
-            String insertQuery = "DELETE from users WHERE username = ?";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            String query = "DELETE from users WHERE username = ?";
+            PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, username);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
@@ -101,6 +106,32 @@ public class MySQLUsersDao implements Users{
             return true;
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting a user.", e);
+        }
+    }
+
+    public List<Instrument> getUserInstruments(String username){
+        String query = "SELECT * FROM instruments WHERE owner_name = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            List<Instrument> instruments = new ArrayList<>();
+            while (rs.next()) {
+                instruments.add(new Instrument(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getString("owner_name"),
+                        rs.getFloat("price"),
+                        rs.getString("shipping_method"),
+                        rs.getString("payment_type"),
+                        DaoFactory.getInstrumentsDao().getInstrumentTypes(rs.getLong("id"))
+                ));
+            }
+            return instruments;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting instrument by id.", e);
         }
     }
 
