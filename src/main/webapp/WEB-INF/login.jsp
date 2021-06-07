@@ -28,6 +28,10 @@
             <br>
             <br>
             <input type="submit" value="Log In">
+            <p class="change_link">
+                Not a member yet ?
+                <a href="/register" class="to_register">Join us</a>
+            </p>
         </div>
     </form>
 </div>
