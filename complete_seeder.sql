@@ -2,12 +2,13 @@ use instruments_db;
 
 CREATE TABLE IF NOT EXISTS users
 (
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL ,
+
     email    VARCHAR(50)  NOT NULL,
     username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
     image_url VARCHAR(100) NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL ,
     PRIMARY KEY (username)
 );
 
@@ -41,11 +42,11 @@ CREATE TABLE IF NOT EXISTS instruments_types
     FOREIGN KEY (type_name) REFERENCES types (name)
 );
 
-insert users (email, username, password)
-values ('andrewisannoyed@gmail.com', 'andywandy123', 'iamannoyed'),
-       ('victorbictor34@gmail.com', 'yovicto', 'puertorico12'),
-       ('vanessaquesa786@yahoo.com', 'vnessisamess', 'ilovegilbert'),
-       ('kelvonisdamon@outlook.com', 'vapepapi', 'ivape345');
+insert users (first_name,last_name,email, username, password)
+values ('andrewisannoyed@gmail.com', 'andywandy123', 'iamannoyed','Andrew','Walsh'),
+       ('victorbictor34@gmail.com', 'yovicto', 'puertorico12','Victoria','Noriega'),
+       ('vanessaquesa786@yahoo.com', 'vnessisamess', 'ilovegilbert','Vicky','Da boss'),
+       ('kelvonisdamon@outlook.com', 'vapepapi', 'ivape345','Kelvon',',Patterson');
 
 insert into instruments (owner_name, name, description, price, payment_type, shipping_method)
 values ('andywandy123', 'Dholak', ' NEW South Asian hand-played drum', 150, 'card', 'pickup'),
