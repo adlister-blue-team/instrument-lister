@@ -1,9 +1,11 @@
 package controllers;
 import dao.DaoFactory;
+import models.Instrument;
 import models.User;
 import util.Password;
 
 import java.io.*;
+import java.util.List;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -19,11 +21,13 @@ public class LoginServlet extends HttpServlet {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             User user = DaoFactory.getUsersDao().getUserByUsername(username);
+            List<Instrument> yourInstruments = user.getInstruments();
 
             boolean validAttempt = Password.check(password, user.getPassword());
 
             if (validAttempt) {
                 request.getSession().setAttribute("user", user);
+                request.getSession().setAttribute("yourInstruments", yourInstruments);
                 response.sendRedirect("/profile");
             } else {
                 response.sendRedirect("/login");
