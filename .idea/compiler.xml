@@ -6,14 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="instrument-lister" />
+        <module name="instrumentlister" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-
-
       <module name="instrument-lister" target="16" />
- 
+      <module name="instrumentlister" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>
