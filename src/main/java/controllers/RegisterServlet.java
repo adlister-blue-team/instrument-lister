@@ -21,16 +21,17 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         String password = Password.hash(request.getParameter("password"));
-        String confirmPassword = Password.hash(request.getParameter("confirm-password"));
+        String confirmPassword = request.getParameter("confirm-password");
 
-        if (email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || !password.equals(confirmPassword)) {
-            response.sendRedirect("/WEB-INF/register");
+        if (email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || !Password.check(confirmPassword, password)) {
+            response.sendRedirect("/register");
         }
-
-        User registeredUser = new User(username, email, password);
-        DaoFactory.getUsersDao().insertUser(registeredUser);
-        //verify hash passwords here and in login jsp
-        request.getSession().setAttribute("user", registeredUser);
-        response.sendRedirect("/profile");
+        else {
+            User registeredUser = new User(username, email, password);
+            DaoFactory.getUsersDao().insertUser(registeredUser);
+            //verify hash passwords here and in login jsp
+            request.getSession().setAttribute("user", registeredUser);
+            response.sendRedirect("/profile");
+        }
     }
 }
