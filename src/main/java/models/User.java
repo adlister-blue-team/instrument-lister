@@ -7,9 +7,23 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private String imageUrl;
     private List<Instrument> instruments = new ArrayList<>();
 
     public User(){}
+    public User(String username, String email, String password, String imageUrl){
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.imageUrl = imageUrl;
+    }
+    public User(String username, String email, String password, List<Instrument> instruments, String imageUrl){
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.instruments = instruments;
+        this.imageUrl = imageUrl;
+    }
     public User(String username, String email, String password){
         this.username = username;
         this.email = email;
@@ -42,4 +56,6 @@ public class User {
     }
     public List<Instrument> getInstruments(){ return this.instruments; }
     public void setInstruments(List<Instrument> instruments){ this.instruments = instruments; }
+    public String getImageUrl(){ return this.imageUrl; }
+    public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
 }

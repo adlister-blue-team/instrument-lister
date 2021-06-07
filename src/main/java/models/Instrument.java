@@ -11,6 +11,7 @@ public class Instrument {
     private String shippingMethod;
     private String paymentType;
     private List<String> types;
+    private String imageUrl;
 
     public Instrument() {}
     public Instrument(long id, String name, String description, String ownerUsername, float price, String shippingMethod, String paymentType, List<String> types) {
@@ -23,6 +24,17 @@ public class Instrument {
         this.paymentType=paymentType;
         this.types = types;
     }
+    public Instrument(long id, String name, String description, String ownerUsername, float price, String shippingMethod, String paymentType, List<String> types, String imageUrl) {
+        this.id=id;
+        this.name=name;
+        this.description=description;
+        this.ownerUsername = ownerUsername;
+        this.price=price;
+        this.shippingMethod= shippingMethod;
+        this.paymentType=paymentType;
+        this.types = types;
+        this.imageUrl = imageUrl;
+    }
 
     public Instrument(String name, String description, String ownerUsername, float price, String shippingMethod, String paymentType, List<String> types) {
         this.name=name;
@@ -32,6 +44,16 @@ public class Instrument {
         this.shippingMethod= shippingMethod;
         this.paymentType=paymentType;
         this.types = types;
+    }
+    public Instrument(String name, String description, String ownerUsername, float price, String shippingMethod, String paymentType, List<String> types, String imageUrl) {
+        this.name=name;
+        this.description=description;
+        this.ownerUsername = ownerUsername;
+        this.price=price;
+        this.shippingMethod= shippingMethod;
+        this.paymentType=paymentType;
+        this.types = types;
+        this.imageUrl = imageUrl;
     }
 
     public long getId() {
@@ -97,5 +119,9 @@ public class Instrument {
     public void setTypes(List<String> types){
         this.types = types;
     }
+
+    public String getImageUrl(){ return this.imageUrl; }
+
+    public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
 }
 

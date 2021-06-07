@@ -7,9 +7,8 @@ CREATE TABLE IF NOT EXISTS users
     email    VARCHAR(50)  NOT NULL,
     username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
+    image_url VARCHAR(100) NULL,
     PRIMARY KEY (username)
-
-
 );
 
 CREATE TABLE IF NOT EXISTS instruments
@@ -21,11 +20,11 @@ CREATE TABLE IF NOT EXISTS instruments
     payment_type    VARCHAR(50)  NOT NULL,
     price           FLOAT(6, 2)  NOT NULL,
     shipping_method VARCHAR(50)  NOT NULL,
+    image_url VARCHAR(100) NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (owner_name) REFERENCES users (username)
     ON DELETE CASCADE
 );
-
 
 CREATE TABLE IF NOT EXISTS types
 (
@@ -41,8 +40,6 @@ CREATE TABLE IF NOT EXISTS instruments_types
     ON DELETE CASCADE,
     FOREIGN KEY (type_name) REFERENCES types (name)
 );
-
-
 
 insert users (email, username, password)
 values ('andrewisannoyed@gmail.com', 'andywandy123', 'iamannoyed'),
