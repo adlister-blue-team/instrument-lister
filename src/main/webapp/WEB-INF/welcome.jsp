@@ -9,7 +9,7 @@
 <html>
 <head>
     <jsp:include page="partials/head.jsp">
-        <jsp:param name="title" value="Login" />
+        <jsp:param name="title" value="Welcome Page" />
     </jsp:include>
 
     <title>Welcome Page</title>
@@ -26,8 +26,8 @@
 <br>
 <h4>
     What brings you to our site today?<br>
-    I would like to browse the current listings<br>
-    I would like to sell my instrument
+    I would like to <a href="/instruments">browse</a> the current listings<br>
+    I would like to <a href="/profile">sell</a> my instrument
 
 </h4>
 </body>
