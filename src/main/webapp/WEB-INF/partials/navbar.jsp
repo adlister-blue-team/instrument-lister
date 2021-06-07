@@ -14,7 +14,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/welcome">Home</a></li>
             <li><a href="/profile">Profile</a></li>
-            <li><a href="/index">Buy Instrument</a></li>
+            <li><a href="/instruments">Buy Instrument</a></li>
             <li><a href="/profile">Sell Your Instrument</a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
