@@ -29,7 +29,8 @@ public class MySQLUsersDao implements Users{
                         rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("password"),
-                        getUserInstruments(rs.getString("username"))
+                        getUserInstruments(rs.getString("username")),
+                        rs.getString("image_url")
                 ));
             }
             return users;
@@ -51,7 +52,8 @@ public class MySQLUsersDao implements Users{
                     rs.getString("username"),
                     rs.getString("email"),
                     rs.getString("password"),
-                    getUserInstruments(rs.getString("username"))
+                    getUserInstruments(rs.getString("username")),
+                    rs.getString("image_url")
             );
 
         } catch (SQLException e) {
@@ -62,11 +64,12 @@ public class MySQLUsersDao implements Users{
     @Override
     public String insertUser(User user) {
         try {
-            String query = "INSERT INTO users(email, username, password) VALUES (?, ?, ?)";
+            String query = "INSERT INTO users(email, username, password, image_url) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getUsername());
             stmt.setString(3, user.getPassword());
+            stmt.setString(4, user.getImageUrl());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -79,12 +82,13 @@ public class MySQLUsersDao implements Users{
     @Override
     public String updateUser(String username, User user) {
         try {
-            String query = "UPDATE users SET email = ?, username = ?, password = ? WHERE username = ?";
+            String query = "UPDATE users SET email = ?, username = ?, password = ?, image_url = ? WHERE username = ?";
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getUsername());
             stmt.setString(3, user.getPassword());
-            stmt.setString(4, username);
+            stmt.setString(4, user.getImageUrl());
+            stmt.setString(5, username);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -125,7 +129,8 @@ public class MySQLUsersDao implements Users{
                         rs.getFloat("price"),
                         rs.getString("shipping_method"),
                         rs.getString("payment_type"),
-                        DaoFactory.getInstrumentsDao().getInstrumentTypes(rs.getLong("id"))
+                        DaoFactory.getInstrumentsDao().getInstrumentTypes(rs.getLong("id")),
+                        rs.getString("image_url")
                 ));
             }
             return instruments;

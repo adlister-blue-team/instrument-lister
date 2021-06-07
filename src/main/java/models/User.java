@@ -56,4 +56,6 @@ public class User {
     }
     public List<Instrument> getInstruments(){ return this.instruments; }
     public void setInstruments(List<Instrument> instruments){ this.instruments = instruments; }
+    public String getImageUrl(){ return this.imageUrl; }
+    public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
 }
