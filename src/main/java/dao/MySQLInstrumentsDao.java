@@ -49,6 +49,7 @@ public class MySQLInstrumentsDao implements Instruments {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
+            rs.next();
             return new Instrument(
                     rs.getLong("id"),
                     rs.getString("name"),
