@@ -29,7 +29,7 @@
             <div class="panel">
                 <div class="user-heading round">
                     <a href="#">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                        <img src="https://www.istockphoto.com/photo/programmer-working-with-program-code-gm1075599562-287983168" alt="Profile Image">
                     </a>
                     <h1>${sessionScope.user.username}</h1>
                     <p>${sessionScope.user.email}</p>
@@ -44,9 +44,6 @@
         </div>
         <div class="profile-info col-md-9">
             <div class="panel">
-                <form>
-                    <textarea placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
-                </form>
                 <footer class="panel-footer">
                     <button class="btn btn-warning pull-right">Post</button>
                     <ul class="nav nav-pills">
@@ -73,10 +70,10 @@
                     <h1>Bio Graph</h1>
                     <div class="row">
                         <div class="bio-row">
-                            <p><span>First Name </span>: ${sessionScope.user.first_name}</p>
+                            <p><span>First Name </span>: ${sessionScope.user.firstName}</p>
                         </div>
                         <div class="bio-row">
-                            <p><span>Last Name </span>: ${sessionScope.user.first_name}</p>
+                            <p><span>Last Name </span>: ${sessionScope.user.lastName}</p>
                         </div>
                         <div class="bio-row">
                             <p><span>Country </span>: Australia</p>

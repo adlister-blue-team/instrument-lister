@@ -41,6 +41,10 @@
             <label for="confirm-password">Confirm Password</label>
             <input id="confirm-password" name="confirm-password" class="form-control" type="password">
         </div>
+        <div class="form-group">
+            <label for="profile-image-url">Profile image Url</label>
+            <input id="profile-image-url" name="profile-image-url" class="form-control" type="text">
+        </div>
         <input type="submit" class="btn btn-primary btn-block">
     </form>
 </div>
