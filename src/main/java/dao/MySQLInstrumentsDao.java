@@ -32,7 +32,8 @@ public class MySQLInstrumentsDao implements Instruments {
                         rs.getFloat("price"),
                         rs.getString("shipping_method"),
                         rs.getString("payment_type"),
-                        getInstrumentTypes(rs.getLong("id"))
+                        getInstrumentTypes(rs.getLong("id")),
+                        rs.getString("image_url")
                 ));
             }
             return instruments;
@@ -57,7 +58,8 @@ public class MySQLInstrumentsDao implements Instruments {
                     rs.getFloat("price"),
                     rs.getString("shipping_method"),
                     rs.getString("payment_type"),
-                    getInstrumentTypes(rs.getLong("id"))
+                    getInstrumentTypes(rs.getLong("id")),
+                    rs.getString("image_url")
             );
 
         } catch (SQLException e) {
@@ -68,8 +70,8 @@ public class MySQLInstrumentsDao implements Instruments {
     @Override
     public Long insertInstrument(Instrument instrument) {
         try {
-            String query = "INSERT INTO instruments(name, description, owner_name, payment_type, price, shipping_method) " +
-                                    "VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO instruments(name, description, owner_name, payment_type, price, shipping_method, image_url) " +
+                                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, instrument.getName());
             stmt.setString(2, instrument.getDescription());
@@ -77,6 +79,7 @@ public class MySQLInstrumentsDao implements Instruments {
             stmt.setString(4, instrument.getPaymentType());
             stmt.setFloat(5, instrument.getPrice());
             stmt.setString(6, instrument.getShippingMethod());
+            stmt.setString(7, instrument.getImageUrl());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -101,7 +104,7 @@ public class MySQLInstrumentsDao implements Instruments {
     public long updateInstrument(long id, Instrument instrument) {
         try {
             String query = "UPDATE instruments SET name = ?, description = ?, owner_name = ?, price = ?," +
-                                    "shipping_method = ?, payment_type = ? WHERE id = ?";
+                                    "shipping_method = ?, payment_type = ?, image_url = ? WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, instrument.getName());
             stmt.setString(2, instrument.getDescription());
@@ -109,7 +112,8 @@ public class MySQLInstrumentsDao implements Instruments {
             stmt.setString(4, instrument.getPaymentType());
             stmt.setFloat(5, instrument.getPrice());
             stmt.setString(6, instrument.getShippingMethod());
-            stmt.setLong(7, id);
+            stmt.setString(7, instrument.getImageUrl());
+            stmt.setLong(8, id);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
