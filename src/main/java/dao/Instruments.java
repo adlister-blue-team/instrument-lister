@@ -23,4 +23,5 @@ public interface Instruments {
 
     List<String> getInstrumentTypes(long id);
 
+    List<Instrument> searchInstrumentsByName(String name);
 }

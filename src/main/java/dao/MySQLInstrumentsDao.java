@@ -68,6 +68,33 @@ public class MySQLInstrumentsDao implements Instruments {
         }
     }
 
+    public List<Instrument> searchInstrumentsByName(String name){
+        List<Instrument> instruments = new ArrayList<>();
+        String query = "SELECT * FROM instruments WHERE name LIKE ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                instruments.add(new Instrument(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getString("owner_name"),
+                        rs.getFloat("price"),
+                        rs.getString("shipping_method"),
+                        rs.getString("payment_type"),
+                        getInstrumentTypes(rs.getLong("id")),
+                        rs.getString("image_url")
+                ));
+            }
+            return instruments;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error searching for instruments by name.", e);
+        }
+    }
+
     @Override
     public Long insertInstrument(Instrument instrument) {
         try {
