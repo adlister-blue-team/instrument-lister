@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    private int id;
     private String username;
     private String firstName;
     private String lastName;
@@ -87,5 +88,13 @@ public class User {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
