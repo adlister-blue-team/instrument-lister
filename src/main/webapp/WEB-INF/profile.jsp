@@ -29,7 +29,7 @@
             <div class="panel">
                 <div class="user-heading round">
                     <a href="#">
-                        <img src="https://www.istockphoto.com/photo/programmer-working-with-program-code-gm1075599562-287983168" alt="Profile Image">
+                        <img src="" alt="Profile Image">
                     </a>
                     <h1>${sessionScope.user.username}</h1>
                     <p>${sessionScope.user.email}</p>
@@ -74,9 +74,6 @@
                         </div>
                         <div class="bio-row">
                             <p><span>Last Name </span>: ${sessionScope.user.lastName}</p>
-                        </div>
-                        <div class="bio-row">
-                            <p><span>Country </span>: Australia</p>
                         </div>
 
                     </div>

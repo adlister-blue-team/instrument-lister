@@ -43,7 +43,7 @@
         </div>
         <div class="form-group">
             <label for="profile-image-url">Profile image Url</label>
-            <input id="profile-image-url" name="profile-image-url" class="form-control" type="text">
+            <input id="profile-image-url" type="file" name="profile-image-url" accept="image/png, image/gif, image/jpeg" />
         </div>
         <input type="submit" class="btn btn-primary btn-block">
     </form>
