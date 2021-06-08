@@ -28,9 +28,8 @@
         <div class="profile-nav col-md-3">
             <div class="panel">
                 <div class="user-heading round">
-                    <a href="#">
-                        <img src="" alt="Profile Image">
-                    </a>
+                        <img src="resources/img/jukebox.jpeg" alt="Profile Image">
+
                     <h1>${sessionScope.user.username}</h1>
                     <p>${sessionScope.user.email}</p>
                 </div>
