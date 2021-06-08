@@ -85,10 +85,12 @@ public class MySQLUsersDao implements Users{
         }
     }
 
-    @Override
-    public String updateUser(String username, User user) {
+
+
+
+    public String updateUser( User user) {
         try {
-            String query = "UPDATE users SET email = ?, username = ?, password = ?, image_url = ?, first_name = ?, last_name = ? WHERE username = ?";
+            String query = "UPDATE users SET email = ?, username = ?, password = ?, image_url = ?, first_name = ?, last_name = ? WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getUsername());
@@ -96,7 +98,7 @@ public class MySQLUsersDao implements Users{
             stmt.setString(4, user.getImageUrl());
             stmt.setString(5, user.getFirstName());
             stmt.setString(6, user.getLastName());
-            stmt.setString(7, username);
+            stmt.setInt(7,user.getId());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();

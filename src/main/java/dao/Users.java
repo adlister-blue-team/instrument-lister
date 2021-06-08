@@ -13,7 +13,7 @@ public interface Users {
     String insertUser(User user);
 
     //returns username of updated user
-    String updateUser(String username, User user);
+    String updateUser( User user);
 
     //return true if deleted user
     boolean deleteUser(String username);
