@@ -4,6 +4,7 @@
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Your Profile" />
     </jsp:include>
+    <link rel="stylesheet" href="/css/user_profile-view.css">
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -19,7 +20,34 @@
     </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-
+<section class="profile">
+    <header class="header">
+        <div class="details">
+            <img src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=b38c22a46932485790a3f52c61fcbe5a" alt="John Doe" class="profile-pic">
+            <h1 class="heading">${sessionScope.user.username}</h1>
+            <div class="location">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12 ,2Z"></path>
+                </svg>
+                <p>${sessionScope.user.email}</p>
+            </div>
+            <div class="stats">
+                <div class="col-4">
+                    <h4>20</h4>
+                    <p>Reviews</p>
+                </div>
+                <div class="col-4">
+                    <h4>10</h4>
+                    <p>Instruments</p>
+                </div>
+                <div class="col-4">
+                    <h4>100</h4>
+                    <p>Sold</p>
+                </div>
+            </div>
+        </div>
+    </header>
+</section>
 <div class="container">
 </div>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -27,17 +55,10 @@
     <div class="row">
         <div class="profile-nav col-md-3">
             <div class="panel">
-                <div class="user-heading round">
-                        <img src="resources/img/jukebox.jpeg" alt="Profile Image">
-
-                    <h1>${sessionScope.user.username}</h1>
-                    <p>${sessionScope.user.email}</p>
-                </div>
 
                 <ul class="nav nav-pills nav-stacked">
                     <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
-                    <li><a href="#"> <i class="fa fa-calendar"></i> Recent Activity <span class="label label-warning pull-right r-activity">9</span></a></li>
-                    <li><a href="#"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                    <li><a href="/update"> <i class="fa fa-edit"></i> Edit profile</a></li>
                 </ul>
             </div>
         </div>
@@ -61,10 +82,6 @@
                     </ul>
                 </footer>
             </div>
-            <div class="panel">
-                <div class="bio-graph-heading">
-                 User bio heading here!
-                </div>
                 <div class="panel-body bio-graph-info">
                     <h1>Bio Graph</h1>
                     <div class="row">
@@ -80,6 +97,6 @@
             </div>
         </div>
     </div>
-</div>
+
         </body>
 </html>
