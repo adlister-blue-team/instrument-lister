@@ -50,11 +50,11 @@ public class MySQLUsersDao implements Users{
     }
 
     @Override
-    public User getUserByUsername(String username) {
-        String query = "SELECT * FROM users WHERE username = ?";
+    public User getUserById(long id) {
+        String query = "SELECT * FROM users WHERE id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, username);
+            stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
             rs.next();
             return new User(

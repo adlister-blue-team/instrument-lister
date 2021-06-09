@@ -28,7 +28,7 @@ public class MySQLInstrumentsDao implements Instruments {
                         rs.getLong("id"),
                         rs.getString("name"),
                         rs.getString("description"),
-                        rs.getString("owner_name"),
+                        rs.getLong("owner_id"),
                         rs.getFloat("price"),
                         rs.getString("shipping_method"),
                         rs.getString("payment_type"),
@@ -55,7 +55,7 @@ public class MySQLInstrumentsDao implements Instruments {
                     rs.getLong("id"),
                     rs.getString("name"),
                     rs.getString("description"),
-                    rs.getString("owner_name"),
+                    rs.getLong("owner_id"),
                     rs.getFloat("price"),
                     rs.getString("shipping_method"),
                     rs.getString("payment_type"),
@@ -80,7 +80,7 @@ public class MySQLInstrumentsDao implements Instruments {
                         rs.getLong("id"),
                         rs.getString("name"),
                         rs.getString("description"),
-                        rs.getString("owner_name"),
+                        rs.getLong("owner_id"),
                         rs.getFloat("price"),
                         rs.getString("shipping_method"),
                         rs.getString("payment_type"),
@@ -98,12 +98,12 @@ public class MySQLInstrumentsDao implements Instruments {
     @Override
     public Long insertInstrument(Instrument instrument) {
         try {
-            String query = "INSERT INTO instruments(name, description, owner_name, payment_type, price, shipping_method, image_url) " +
+            String query = "INSERT INTO instruments(name, description, owner_id, payment_type, price, shipping_method, image_url) " +
                                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, instrument.getName());
             stmt.setString(2, instrument.getDescription());
-            stmt.setString(3, instrument.getOwnerUsername());
+            stmt.setLong(3, instrument.getOwnerId());
             stmt.setString(4, instrument.getPaymentType());
             stmt.setFloat(5, instrument.getPrice());
             stmt.setString(6, instrument.getShippingMethod());
@@ -131,12 +131,12 @@ public class MySQLInstrumentsDao implements Instruments {
     @Override
     public long updateInstrument(long id, Instrument instrument) {
         try {
-            String query = "UPDATE instruments SET name = ?, description = ?, owner_name = ?, price = ?," +
+            String query = "UPDATE instruments SET name = ?, description = ?, owner_id = ?, price = ?," +
                                     "shipping_method = ?, payment_type = ?, image_url = ? WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, instrument.getName());
             stmt.setString(2, instrument.getDescription());
-            stmt.setString(3, instrument.getOwnerUsername());
+            stmt.setLong(3, instrument.getOwnerId());
             stmt.setString(4, instrument.getPaymentType());
             stmt.setFloat(5, instrument.getPrice());
             stmt.setString(6, instrument.getShippingMethod());
@@ -162,7 +162,7 @@ public class MySQLInstrumentsDao implements Instruments {
             }
 
             //update instrument in user's instruments
-            User user = DaoFactory.getUsersDao().getUserByUsername(instrument.getOwnerUsername());
+            User user = DaoFactory.getUsersDao().getUserById(instrument.getOwnerId());
             instrument.setId(id);
 
             return id;
@@ -177,7 +177,7 @@ public class MySQLInstrumentsDao implements Instruments {
         try {
 
             Instrument instrument = getInstrumentById(id);
-            User user = DaoFactory.getUsersDao().getUserByUsername(instrument.getOwnerUsername());
+            User user = DaoFactory.getUsersDao().getUserById(instrument.getOwnerId());
 
             String query = "DELETE from instruments WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
