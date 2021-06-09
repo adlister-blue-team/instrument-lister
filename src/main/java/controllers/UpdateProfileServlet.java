@@ -39,9 +39,9 @@ public class UpdateProfileServlet extends HttpServlet {
         updatedUser.setEmail(email);
         updatedUser.setPassword(password);
 //        String usernameSession = (String) req.getSession().getAttribute("username");
-        req.getSession().setAttribute("user", DaoFactory.getUsersDao().updateUser( updatedUser));
+         DaoFactory.getUsersDao().updateUser( updatedUser);
 
-        req.getRequestDispatcher("/WEB-INF/profile.jsp").forward(req, resp);
+        resp.sendRedirect("/profile");
 
   }
 }

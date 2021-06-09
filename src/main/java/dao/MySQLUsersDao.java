@@ -88,7 +88,7 @@ public class MySQLUsersDao implements Users{
 
 
 
-    public String updateUser( User user) {
+    public User updateUser( User user) {
         try {
             String query = "UPDATE users SET email = ?, username = ?, password = ?, image_url = ?, first_name = ?, last_name = ? WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -102,7 +102,7 @@ public class MySQLUsersDao implements Users{
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            return user.getUsername();
+            return user;
         } catch (SQLException e) {
             throw new RuntimeException("Error updating a user.", e);
         }
@@ -124,7 +124,7 @@ public class MySQLUsersDao implements Users{
     }
 
     public List<Instrument> getUserInstruments(String username){
-        String query = "SELECT * FROM instruments WHERE owner_name = ?";
+        String query = "SELECT * FROM instruments JOIN users ON users.id = owner_name WHERE username = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, username);
