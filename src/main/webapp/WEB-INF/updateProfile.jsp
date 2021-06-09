@@ -94,7 +94,7 @@
                                                                 <div class="col">
                                                                     <div class="form-group">
                                                                         <label>Email</label>
-                                                                        <input class="form-control" type="email" placeholder="${sessionScope.user.email}" value="${sessionScope.user.email}">
+                                                                        <input class="form-control" type="email" placeholder="${sessionScope.user.email}" value="${sessionScope.user.email}" name="email">
                                                                     </div>
                                                                 </div>
                                                             </div>
