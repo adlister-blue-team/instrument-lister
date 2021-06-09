@@ -130,7 +130,7 @@ public class MySQLUsersDao implements Users{
             stmt.setString(4, user.getImageUrl());
             stmt.setString(5, user.getFirstName());
             stmt.setString(6, user.getLastName());
-            stmt.setInt(7,user.getId());
+            stmt.setLong(7,user.getId());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private int id;
+    private long id;
     private String username;
     private String firstName;
     private String lastName;
@@ -89,11 +89,11 @@ public class User {
         return lastName;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }
