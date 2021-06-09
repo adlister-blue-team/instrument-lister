@@ -22,4 +22,6 @@ public interface Users {
     List<Instrument> getUserInstruments(String username);
 
     long getUserId(String username);
+
+    User getUserById(long ownerId);
 }
