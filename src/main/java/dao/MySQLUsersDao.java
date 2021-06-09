@@ -147,7 +147,7 @@ public class MySQLUsersDao implements Users{
 
     @Override
     public List<Instrument> getUserInstruments(long id){
-        String query = "SELECT * FROM instruments JOIN users ON users.id = owner_id WHERE id = ?";
+        String query = "SELECT * FROM instruments WHERE owner_id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
