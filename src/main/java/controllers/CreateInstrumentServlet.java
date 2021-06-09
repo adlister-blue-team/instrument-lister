@@ -30,7 +30,7 @@ public class CreateInstrumentServlet extends HttpServlet {
         Instrument instrument = new Instrument(
                 request.getParameter("name"),
                 request.getParameter("description"),
-                DaoFactory.getUsersDao().getUserId(user.getUsername()),
+                user,
                 Float.parseFloat(request.getParameter("price")),
                 request.getParameter("shippingMethod"),
                 request.getParameter("paymentType"),

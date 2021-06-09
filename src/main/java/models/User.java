@@ -20,11 +20,10 @@ public class User {
         this.password = password;
         this.imageUrl = imageUrl;
     }
-    public User(String username, String email, String password, List<Instrument> instruments, String imageUrl, String firstName, String lastName){
+    public User(String username, String email, String password, String imageUrl, String firstName, String lastName){
         this.username = username;
         this.email = email;
         this.password = password;
-        this.instruments = instruments;
         this.imageUrl = imageUrl;
         this.firstName = firstName;
         this.lastName = lastName;

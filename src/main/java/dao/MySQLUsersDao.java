@@ -29,7 +29,6 @@ public class MySQLUsersDao implements Users{
                         rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("password"),
-                        getUserInstruments(rs.getLong("id")),
                         rs.getString("image_url"),
                         rs.getString("first_name"),
                         rs.getString("last_name")
@@ -66,7 +65,6 @@ public class MySQLUsersDao implements Users{
                     rs.getString("username"),
                     rs.getString("email"),
                     rs.getString("password"),
-                    getUserInstruments(rs.getLong("id")),
                     rs.getString("image_url"),
                     rs.getString("first_name"),
                     rs.getString("last_name")
@@ -89,7 +87,6 @@ public class MySQLUsersDao implements Users{
                     rs.getString("username"),
                     rs.getString("email"),
                     rs.getString("password"),
-                    getUserInstruments(rs.getLong("id")),
                     rs.getString("image_url"),
                     rs.getString("first_name"),
                     rs.getString("last_name")
@@ -171,7 +168,7 @@ public class MySQLUsersDao implements Users{
                         rs.getLong("id"),
                         rs.getString("name"),
                         rs.getString("description"),
-                        rs.getLong("owner_id"),
+                        getUserById(id),
                         rs.getFloat("price"),
                         rs.getString("shipping_method"),
                         rs.getString("payment_type"),
