@@ -8,8 +8,6 @@ import java.util.List;
 public interface Users {
     List<User> getAllUsers();
 
-    User getUserByUsername(String username);
-
     //returns username of inserted user
     String insertUser(User user);
 
