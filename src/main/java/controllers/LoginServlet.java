@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("password");
 
             User user = DaoFactory.getUsersDao().getUserByUsername(username);
-            List<Instrument> yourInstruments = DaoFactory.getUsersDao().getUserInstruments(user.getUsername());
+            List<Instrument> yourInstruments = DaoFactory.getUsersDao().getUserInstruments(user.getId());
             if(user==null){
                 response.sendRedirect("/login");
                 return;

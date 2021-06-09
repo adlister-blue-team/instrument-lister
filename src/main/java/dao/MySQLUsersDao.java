@@ -15,13 +15,6 @@ public class MySQLUsersDao implements Users{
         this.connection = getConnection(config);
     }
 
-    public long getUserId(String username){
-        String query = "SELECT id FROM users WHERE username = ?";
-        PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setString(1, username);
-        return stmt.executeQuery().getLong("id");
-    }
-
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
@@ -36,7 +29,7 @@ public class MySQLUsersDao implements Users{
                         rs.getString("username"),
                         rs.getString("email"),
                         rs.getString("password"),
-                        getUserInstruments(rs.getString("username")),
+                        getUserInstruments(rs.getLong("id")),
                         rs.getString("image_url"),
                         rs.getString("first_name"),
                         rs.getString("last_name")
@@ -46,6 +39,28 @@ public class MySQLUsersDao implements Users{
 
         } catch (SQLException e) {
             throw new RuntimeException("Error getting all users.", e);
+        }
+    }
+
+    public User getUserByUsername(String username) {
+        String query = "SELECT * FROM users WHERE username = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return new User(
+                    rs.getString("username"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    getUserInstruments(rs.getLong("id")),
+                    rs.getString("image_url"),
+                    rs.getString("first_name"),
+                    rs.getString("last_name")
+            );
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting user by username.", e);
         }
     }
 
@@ -61,7 +76,7 @@ public class MySQLUsersDao implements Users{
                     rs.getString("username"),
                     rs.getString("email"),
                     rs.getString("password"),
-                    getUserInstruments(rs.getString("username")),
+                    getUserInstruments(rs.getLong("id")),
                     rs.getString("image_url"),
                     rs.getString("first_name"),
                     rs.getString("last_name")
@@ -130,11 +145,12 @@ public class MySQLUsersDao implements Users{
         }
     }
 
-    public List<Instrument> getUserInstruments(String username){
-        String query = "SELECT * FROM instruments JOIN users ON users.id = owner_name WHERE username = ?";
+    @Override
+    public List<Instrument> getUserInstruments(long id){
+        String query = "SELECT * FROM instruments JOIN users ON users.id = owner_id WHERE id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, username);
+            stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
             List<Instrument> instruments = new ArrayList<>();
             while (rs.next()) {
@@ -142,7 +158,7 @@ public class MySQLUsersDao implements Users{
                         rs.getLong("id"),
                         rs.getString("name"),
                         rs.getString("description"),
-                        rs.getString("owner_name"),
+                        rs.getLong("owner_id"),
                         rs.getFloat("price"),
                         rs.getString("shipping_method"),
                         rs.getString("payment_type"),

@@ -16,6 +16,6 @@ public class DeleteInstrumentServlet extends HttpServlet{
         DaoFactory.getInstrumentsDao().deleteInstrument(id);
         User user = (User) request.getSession().getAttribute("user");
         request.getSession().setAttribute("instruments", DaoFactory.getInstrumentsDao().getAllInstruments());
-        request.getSession().setAttribute("yourInstruments", DaoFactory.getUsersDao().getUserInstruments(user.getUsername()));
+        request.getSession().setAttribute("yourInstruments", DaoFactory.getUsersDao().getUserInstruments(user.getId()));
     }
 }
