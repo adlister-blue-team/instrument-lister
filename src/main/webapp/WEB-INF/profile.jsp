@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <c:forEach var="instrument" items="${sessionScope.user.instruments}">
+        <c:forEach var="instrument" items="${sessionScope.instruments}">
         <div class="col-md-6">
             <h2>${instrument.name}</h2>
             <p>${instrument.description}</p>

@@ -13,8 +13,7 @@ import java.io.IOException;
 public class ProfileServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User userSession = (User)request.getSession().getAttribute("user");
-        userSession.setInstruments(DaoFactory.getUsersDao().getUserInstruments(userSession.getId()));
-        request.getSession().setAttribute("user", userSession);
+        request.getSession().setAttribute("instruments", DaoFactory.getUsersDao().getUserInstruments(DaoFactory.getUsersDao().getUserId(userSession.getUsername())));
         if ( userSession != null) {
               request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request,response);
         }
