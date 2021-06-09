@@ -60,6 +60,7 @@
                     <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
                     <li><a href="/updateProfile"> <i class="fa fa-edit"></i> Edit profile</a></li>
                 </ul>
+                <a href="/deleteUser/${sessionScope.user.username}">Delete Profile</a>
             </div>
         </div>
         <div class="profile-info col-md-9">
