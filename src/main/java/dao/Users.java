@@ -22,4 +22,6 @@ public interface Users {
     User getUserByUsername(String username);
 
     User getUserById(long ownerId);
+
+    long getUserId(String username);
 }

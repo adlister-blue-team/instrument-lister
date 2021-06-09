@@ -42,6 +42,19 @@ public class MySQLUsersDao implements Users{
         }
     }
 
+    public long getUserId(String username){
+        String query = "SELECT id FROM users WHERE username = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return rs.getLong("id");
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting user id.", e);
+        }
+    }
+
     public User getUserByUsername(String username) {
         String query = "SELECT * FROM users WHERE username = ?";
         try {
