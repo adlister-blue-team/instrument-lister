@@ -1,4 +1,5 @@
 package controllers;
+import dao.DaoFactory;
 import models.User;
 
 import javax.servlet.ServletException;
@@ -12,7 +13,8 @@ import java.io.IOException;
 public class ProfileServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User userSession = (User)request.getSession().getAttribute("user");
-
+        userSession.setInstruments(DaoFactory.getUsersDao().getUserInstruments(userSession.getId()));
+        request.getSession().setAttribute("user", userSession);
         if ( userSession != null) {
               request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request,response);
         }

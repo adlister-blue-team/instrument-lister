@@ -27,6 +27,7 @@ public class CreateInstrumentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession().getAttribute("user");
+        user.setId(DaoFactory.getUsersDao().getUserId(user.getUsername()));
         Instrument instrument = new Instrument(
                 request.getParameter("name"),
                 request.getParameter("description"),
@@ -37,6 +38,6 @@ public class CreateInstrumentServlet extends HttpServlet {
                 new ArrayList<>(Arrays.asList(request.getParameter("types")))
         );
         DaoFactory.getInstrumentsDao().insertInstrument(instrument);
-        response.sendRedirect("/ads");
+        response.sendRedirect("/instruments");
     }
 }
