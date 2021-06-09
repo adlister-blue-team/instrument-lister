@@ -17,9 +17,9 @@ public interface Users {
     //return true if deleted user
     boolean deleteUser(String username);
 
-    List<Instrument> getUserInstruments(String username);
+    List<Instrument> getUserInstruments(long id);
 
-    long getUserId(String username);
+    User getUserByUsername(String username);
 
     User getUserById(long ownerId);
 }
