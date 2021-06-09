@@ -15,6 +15,13 @@ public class MySQLUsersDao implements Users{
         this.connection = getConnection(config);
     }
 
+    public long getUserId(String username){
+        String query = "SELECT id FROM users WHERE username = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, username);
+        return stmt.executeQuery().getLong("id");
+    }
+
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
@@ -146,7 +153,7 @@ public class MySQLUsersDao implements Users{
             return instruments;
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error getting instrument by id.", e);
+            throw new RuntimeException("Error getting user instruments", e);
         }
     }
 

@@ -30,7 +30,7 @@ public class CreateInstrumentServlet extends HttpServlet {
         Instrument instrument = new Instrument(
                 request.getParameter("name"),
                 request.getParameter("description"),
-                user.getUsername(),
+                DaoFactory.getUsersDao().getUserId(user.getUsername()),
                 Float.parseFloat(request.getParameter("price")),
                 request.getParameter("shippingMethod"),
                 request.getParameter("paymentType"),
@@ -38,6 +38,5 @@ public class CreateInstrumentServlet extends HttpServlet {
         );
         DaoFactory.getInstrumentsDao().insertInstrument(instrument);
         response.sendRedirect("/ads");
-
     }
 }

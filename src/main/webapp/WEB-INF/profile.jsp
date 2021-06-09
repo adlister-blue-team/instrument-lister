@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -97,7 +98,18 @@
                 </div>
             </div>
         </div>
+        <c:forEach var="instrument" items="${sessionScope.yourInstruments}">
+        <div class="col-md-6">
+            <h2>${instrument.name}</h2>
+            <p>${instrument.description}</p>
+            <p>${instrument.ownerUsername}</p>
+            <p>${instrument.price}</p>
+        </div>
+         </c:forEach>
     </div>
 
+    <script>
+
+    </script>
         </body>
 </html>

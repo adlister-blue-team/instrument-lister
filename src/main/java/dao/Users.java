@@ -1,5 +1,6 @@
 package dao;
 
+import models.Instrument;
 import models.User;
 
 import java.util.List;
@@ -17,4 +18,8 @@ public interface Users {
 
     //return true if deleted user
     boolean deleteUser(String username);
+
+    List<Instrument> getUserInstruments(String username);
+
+    long getUserId(String username);
 }
