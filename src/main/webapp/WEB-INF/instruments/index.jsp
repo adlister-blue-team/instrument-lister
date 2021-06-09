@@ -16,7 +16,7 @@
         <div class="col-md-6">
             <h2>${instrument.name}</h2>
             <p>${instrument.description}</p>
-            <p>${instrument.ownerUsername}</p>
+            <p>${instrument.owner.username}</p>
             <p>${instrument.price}</p>
         </div>
     </c:forEach>

@@ -1,12 +1,14 @@
 package models;
 
+import dao.DaoFactory;
+
 import java.util.List;
 
 public class Instrument {
     private long id;
     private String name;
     private String description;
-    private long ownerId;
+    private User owner;
     private float price;
     private String shippingMethod;
     private String paymentType;
@@ -14,21 +16,21 @@ public class Instrument {
     private String imageUrl;
 
     public Instrument() {}
-    public Instrument(long id, String name, String description, long ownerId, float price, String shippingMethod, String paymentType, List<String> types) {
+    public Instrument(long id, String name, String description, User user, float price, String shippingMethod, String paymentType, List<String> types) {
         this.id=id;
         this.name=name;
         this.description=description;
-        this.ownerId = ownerId;
+        this.owner = user;
         this.price=price;
         this.shippingMethod= shippingMethod;
         this.paymentType=paymentType;
         this.types = types;
     }
-    public Instrument(long id, String name, String description, long ownerId, float price, String shippingMethod, String paymentType, List<String> types, String imageUrl) {
+    public Instrument(long id, String name, String description, User user, float price, String shippingMethod, String paymentType, List<String> types, String imageUrl) {
         this.id=id;
         this.name=name;
         this.description=description;
-        this.ownerId = ownerId;
+        this.owner = user;
         this.price=price;
         this.shippingMethod= shippingMethod;
         this.paymentType=paymentType;
@@ -36,19 +38,19 @@ public class Instrument {
         this.imageUrl = imageUrl;
     }
 
-    public Instrument(String name, String description, long ownerId, float price, String shippingMethod, String paymentType, List<String> types) {
+    public Instrument(String name, String description, User user, float price, String shippingMethod, String paymentType, List<String> types) {
         this.name=name;
         this.description=description;
-        this.ownerId = ownerId;
+        this.owner = user;
         this.price=price;
         this.shippingMethod= shippingMethod;
         this.paymentType=paymentType;
         this.types = types;
     }
-    public Instrument(String name, String description, long ownerId, float price, String shippingMethod, String paymentType, List<String> types, String imageUrl) {
+    public Instrument(String name, String description, User user, float price, String shippingMethod, String paymentType, List<String> types, String imageUrl) {
         this.name=name;
         this.description=description;
-        this.ownerId = ownerId;
+        this.owner = user;
         this.price=price;
         this.shippingMethod= shippingMethod;
         this.paymentType=paymentType;
@@ -88,13 +90,10 @@ public class Instrument {
         this.price = price;
     }
 
-    public long getOwnerId() {
-        return ownerId;
+    public User getOwner(){
+        return owner;
     }
 
-    public void setOwnerUsername(String ownerUsername) {
-        this.ownerId = ownerId;
-    }
 
     public String getShippingMethod() {
         return shippingMethod;
@@ -123,5 +122,9 @@ public class Instrument {
     public String getImageUrl(){ return this.imageUrl; }
 
     public void setImageUrl(String imageUrl){ this.imageUrl = imageUrl; }
+
+    public void setOwner(User user) {
+        this.owner = user;
+    }
 }
 
