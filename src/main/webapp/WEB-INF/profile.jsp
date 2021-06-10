@@ -99,16 +99,26 @@
             </div>
         </div>
         <c:forEach var="instrument" items="${sessionScope.instruments}">
-        <div class="col-md-6">
+        <div id="${instrument.id}" class="col-md-6">
             <h2>${instrument.name}</h2>
             <p>${instrument.description}</p>
             <p>${instrument.price}</p>
+            <button class="btn delete-post" type="submit">Delete Post</button>
         </div>
          </c:forEach>
     </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
-
+        $(document).ready(function(){
+            $(".delete-post").click(function(){
+                $.ajax("/deleteInstrument?id=" + $(this).parent().attr("id"), {
+                    method: "DELETE"
+                })
+                    .done(function() {
+                        window.location = "/profile";
+                    })
+            })
+        })
     </script>
         </body>
 </html>
