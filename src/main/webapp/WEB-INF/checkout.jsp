@@ -16,7 +16,7 @@
 
 <div class="container">
     <h1>Checkout Information</h1>
-    <form action="/checkout" method="post">
+    <form action="/welcome" method="post">
         <div class="Billing Address">
             <label for="address">Billing Address</label>
             <input id="address" name="address" type="text">
@@ -29,7 +29,7 @@
 
         <div class="Card Payment">
             <label for="cardpay">Card Information</label>
-            <input id="cardpay" name="cardpay" type="text"
+            <input id="cardpay" name="cardpay" type="text">
                    <button type="submit">Complete your purchase!</button>
 
         </div>
