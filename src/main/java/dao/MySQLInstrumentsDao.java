@@ -182,9 +182,7 @@ public class MySQLInstrumentsDao implements Instruments {
             String query = "DELETE from instruments WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
-            stmt.executeQuery();
-            ResultSet rs = stmt.getGeneratedKeys();
-            rs.next();
+            stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting an instrument.", e);
