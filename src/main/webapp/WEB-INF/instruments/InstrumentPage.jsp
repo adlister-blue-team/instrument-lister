@@ -19,7 +19,7 @@
     <h1>Here is your requested instrument:</h1>
     <h3>Name of instrument: <em>${SingleAd.name}</em></h3>
     <h3>Description: <em>${SingleAd.description}</em></h3>
-    <h3>Owners Username: <em>${SingleAd.ownerUsername}</em></h3>
+    <h3>Owners Username: <em>${SingleAd.owner.username}</em></h3>
     <h3>Price: <em>${SingleAd.price}</em></h3>
     <h3>Shipping Method: <em>${SingleAd.shippingMethod}</em></h3>
     <input type="submit" value="Buy">

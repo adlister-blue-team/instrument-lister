@@ -10,13 +10,8 @@ import java.io.IOException;
 
 @WebServlet(name = "CheckoutServlet", urlPatterns = "/checkout")
 public class CheckoutServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/login");
-        }
-        else {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             request.getRequestDispatcher("/WEB-INF/checkout.jsp")
                     .forward(request, response);
-        }
     }
 }
