@@ -19,6 +19,11 @@
             <li class="list-inline-item"><a href="https://giphy.com/clips/discoverychannel-discovery-ellen-degeneres-endangered-ypdjtu1vc8CoSvLrcF">Privacy Policy</a></li>
         </ul>
         <p class="copyright">Blue Sounds Instrument Lister © 2021</p>
+        <form action="/logout" method="get">
+            <button class="btn btn-block btn-secondary">
+                <i class="fa fa-sign-out "></i>
+                <span>Logout</span>
+            </button></form>
     </footer>
 </div>
 </body>
