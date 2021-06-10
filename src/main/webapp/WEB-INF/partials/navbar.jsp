@@ -22,6 +22,5 @@
         </ul>
         </form>
     </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -
+    </div><!-- /.container-fluid -->
 </nav>
-
