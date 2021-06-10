@@ -11,7 +11,7 @@
 <jsp:include page="partials/navbar.jsp" />
 <main class="container">
     <header class="header jumbotron px-0 mt-5 d-none d-md-block">
-        <h1 class="text-center bg-light">Welcome to the Blue Sounds Instrument Lister</h1>
+        <h1>Welcome to the Blue Sounds Instrument Lister</h1>
     </header>
 <br>
 <h3 class="welcome-content">
