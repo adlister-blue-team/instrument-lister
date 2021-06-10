@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private int id;
+    private long id;
     private String username;
     private String firstName;
     private String lastName;
@@ -28,6 +28,16 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+    public User(long id,String username, String email, String password, String imageUrl, String firstName, String lastName){
+        this.id=id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.imageUrl = imageUrl;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public User(String username, String email, String password){
         this.username = username;
         this.email = email;
@@ -89,11 +99,11 @@ public class User {
         return lastName;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

@@ -27,19 +27,22 @@ public class UpdateProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //Obtain submitted form data
+        User updatedUser = (User) req.getSession().getAttribute("user");
+        User userInDB = DaoFactory.getUsersDao().getUserById(updatedUser.getId());
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         String username = req.getParameter("username");
         String email = req.getParameter("email");
         String password =req.getParameter("password");
-        User updatedUser = (User) req.getSession().getAttribute("user");
-        updatedUser.setFirstName(firstName);
-        updatedUser.setLastName(lastName);
-        updatedUser.setUsername(username);
-        updatedUser.setEmail(email);
-        updatedUser.setPassword(password);
+
+        userInDB.setFirstName(firstName);
+        userInDB.setLastName(lastName);
+        userInDB.setUsername(username);
+        userInDB.setEmail(email);
+        //if password not null and not empty string set password to current password.
+//        userInDB.setPassword(password);
 //        String usernameSession = (String) req.getSession().getAttribute("username");
-         DaoFactory.getUsersDao().updateUser( updatedUser);
+        req.getSession().setAttribute("user",DaoFactory.getUsersDao().updateUser( userInDB));
 
         resp.sendRedirect("/profile");
 
