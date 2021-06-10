@@ -173,11 +173,7 @@
                             <div class="card mb-3">
                                 <div class="card-body text-dark">
                                     <div class="px-xl-3">
-                                        <form action="/logout" method="get">
-                                        <button class="btn btn-block btn-secondary">
-                                            <i class="fa fa-sign-out "></i>
-                                            <span>Logout</span>
-                                        </button></form>
+
                                     </div>
                                 </div>
                             </div>
