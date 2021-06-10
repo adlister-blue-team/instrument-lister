@@ -16,12 +16,12 @@
             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/welcome">Home</a></li>
-            <li><a href="/profile">Login</a></li>
+            <li><a href="/login">Login</a></li>
             <li><a href="/instruments">Buy Instrument</a></li>
             <li><a href="/profile">Sell Your Instrument</a></li>
         </ul>
         </form>
     </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+    </div><!-- /.container-fluid -
 </nav>
 
