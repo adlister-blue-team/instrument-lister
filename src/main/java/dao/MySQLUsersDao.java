@@ -62,6 +62,7 @@ public class MySQLUsersDao implements Users{
             ResultSet rs = stmt.executeQuery();
             rs.next();
             return new User(
+                    rs.getLong("id"),
                     rs.getString("username"),
                     rs.getString("email"),
                     rs.getString("password"),
@@ -84,6 +85,7 @@ public class MySQLUsersDao implements Users{
             ResultSet rs = stmt.executeQuery();
             rs.next();
             return new User(
+                    rs.getLong("id"),
                     rs.getString("username"),
                     rs.getString("email"),
                     rs.getString("password"),
@@ -93,7 +95,7 @@ public class MySQLUsersDao implements Users{
             );
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error getting user by username.", e);
+            throw new RuntimeException("Error getting user by id.", e);
         }
     }
 
@@ -134,7 +136,7 @@ public class MySQLUsersDao implements Users{
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            return user;
+            return this.getUserById(user.getId());
         } catch (SQLException e) {
             throw new RuntimeException("Error updating a user.", e);
         }
