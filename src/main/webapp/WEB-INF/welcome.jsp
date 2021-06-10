@@ -20,4 +20,5 @@
 <br>
 </main>
 </body>
+<jsp:include page="partials/footer.jsp"/>
 </html>
